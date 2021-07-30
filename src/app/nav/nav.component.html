@@ -1,6 +1,6 @@
 <div class='row'>
   <div class='col'>
-    <nav class='navbar navbar-expand-md justify-content-md-center'>
+    <nav class='navbar navbar-expand-md justify-content-md-center navbar-light'>
       <ul class='navbar-nav'>
 
         <li class="nav-item dropdown">
@@ -8,61 +8,51 @@
             CHOOSE PORTFOLIO CATEGORY
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" routerLink='/software'>Software</a>
-            <a class="dropdown-item" routerLink='/illustration'>Illustration</a>
+            <a class="dropdown-item" routerLink='/software/tech'>Software</a>
+            <a class="dropdown-item" routerLink='/illustration/gallery'>Illustration</a>
           </div>
         </li>
 
         <li class='nav-item' id='home-btn'>
-          <a class='nav-link' routerLink=''>HOME</a>
+          <a class='nav-link' [routerLink]="'/'+section+'/home'">HOME</a>
         </li>
 
         <li id='illustration-nav'>
           <ul class='navbar-nav'>
+
           <li class='nav-item'>
-            <a class='nav-link'>BIO</a>
+            <a class='nav-link' [routerLink]="'/'+section+'/gallery'">GALLERY</a>
           </li>
 
           <li class='nav-item'>
-            <a class='nav-link'>GALLERY</a>
+            <a class='nav-link' [routerLink]="'/'+section+'/comics'">COMICS</a>
           </li>
 
           <li class='nav-item'>
-            <a class='nav-link'>COMICS</a>
-          </li>
-
-          <li class='nav-item'>
-            <a class='nav-link'>COMMISSIONS</a>
-          </li>
-
-          <li class='nav-item'>
-            <a class='nav-link'>CONTACT</a>
+            <a class='nav-link' [routerLink]="'/'+section+'/commissions'">COMMISSIONS</a>
           </li>
         </ul>
         </li>
 
       <li id='software-nav'>
         <ul class='navbar-nav'>
+
         <li class='nav-item'>
-          <a class='nav-link'>BIO</a>
+          <a class='nav-link' [routerLink]="'/'+section+'/tech'">TECH SKILLS</a>
         </li>
 
         <li class='nav-item'>
-          <a class='nav-link'>TECH SKILLS</a>
+          <a class='nav-link' [routerLink]="'/'+section+'/soft'">SOFT SKILLS</a>
         </li>
 
         <li class='nav-item'>
-          <a class='nav-link'>SOFT SKILLS</a>
-        </li>
-
-        <li class='nav-item'>
-          <a class='nav-link'>PROJECTS</a>
-        </li>
-
-        <li class='nav-item'>
-          <a class='nav-link'>CONTACT</a>
+          <a class='nav-link' [routerLink]="'/'+section+'/projects'">PROJECTS</a>
         </li>
       </ul>
+      </li>
+
+      <li class='nav-item' id='contact-btn'>
+        <a class='nav-link' [routerLink]="'/'+section+'/contact'">CONTACT</a>
       </li>
 
       </ul>
