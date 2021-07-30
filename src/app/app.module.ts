@@ -6,9 +6,14 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { NavComponent } from './nav/nav.component';
 import { MenuComponent } from './menu/menu.component';
-import { SoftwareBioComponent } from './software-bio/software-bio.component';
-import { IllustrationBioComponent } from './illustration-bio/illustration-bio.component';
-import { HomeBioComponent } from './home-bio/home-bio.component';
+import { SoftwareBioComponent } from './software-tech/software-tech.component';
+import { IllustrationBioComponent } from './illustration-gallery/illustration-gallery.component';
+import { HomeBioComponent } from './home/home.component';
+import { ContactComponent } from './contact/contact.component';
+import { SoftwareSoftskillsComponent } from './software-softskills/software-softskills.component';
+import { SoftwareProjectsComponent } from './software-projects/software-projects.component';
+import { IllustrationComicsComponent } from './illustration-comics/illustration-comics.component';
+import { IllustrationCommissionsComponent } from './illustration-commissions/illustration-commissions.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,12 @@ import { HomeBioComponent } from './home-bio/home-bio.component';
     MenuComponent,
     SoftwareBioComponent,
     IllustrationBioComponent,
-    HomeBioComponent
+    HomeBioComponent,
+    ContactComponent,
+    SoftwareSoftskillsComponent,
+    SoftwareProjectsComponent,
+    IllustrationComicsComponent,
+    IllustrationCommissionsComponent
   ],
   imports: [
     BrowserModule,
