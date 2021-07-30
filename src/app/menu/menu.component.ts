@@ -8,15 +8,16 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  private currentRoute = '';
+  currentGenRoute = '';
+  currentRoute = '';
 
   constructor(private route:Router) { 
-    this.currentRoute = route.url.split('/')[1];
+    this.currentGenRoute = route.url.split('/')[1];
+    this.currentRoute = route.url.split('/')[route.url.split('/').length - 1];
   }
 
   ngOnInit(): void {
-    (document.getElementById('menu-nav') as HTMLFormElement).
-    setAttribute('defaultPortfolio', this.currentRoute);
+
   }
 
 }
