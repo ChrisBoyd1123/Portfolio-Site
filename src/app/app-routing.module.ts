@@ -31,10 +31,9 @@ const routes: Routes = [
     ]
   },
   {path: 'contact', component:ContactComponent},
-  {path: '', redirectTo:'landing-page', pathMatch: 'full'},
+  {path: '', redirectTo:'landing-page/home', pathMatch: 'full'},
   {path: 'landing-page',
   children: [
-    {path: '', component:HomeBioComponent},
     {path: 'home', component:HomeBioComponent},
     {path: 'contact', component:ContactComponent}
   ]}
