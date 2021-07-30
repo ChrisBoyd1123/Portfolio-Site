@@ -12,7 +12,6 @@ import { IllustrationCommissionsComponent } from './illustration-commissions/ill
 const routes: Routes = [
   {path: 'software',
   children: [
-  {path: '', component:SoftwareBioComponent},
   {path: 'tech', component:SoftwareBioComponent},
   {path: 'soft', component:SoftwareSoftskillsComponent},
   {path: 'projects', component:SoftwareProjectsComponent},
@@ -22,7 +21,6 @@ const routes: Routes = [
 },
   {path: 'illustration',
   children: [
-    {path: '', component:IllustrationBioComponent},
     {path: 'gallery', component:IllustrationBioComponent},
     {path: 'comics', component:IllustrationComicsComponent},
     {path: 'commissions', component:IllustrationCommissionsComponent},
