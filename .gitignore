@@ -49,3 +49,6 @@ Thumbs.db
 
 # Example Data
 /data
+
+#authentication methods
+/authGeneration.js
