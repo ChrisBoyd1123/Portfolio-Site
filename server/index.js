@@ -13,6 +13,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/', routes);
 
+const { newProjLink, searchOneProjLink } = require('./db/helpers.js');
+
 db().then(() => {
     app.listen(PORT, () => {
         console.log(`Server listening on ${PORT}`);
