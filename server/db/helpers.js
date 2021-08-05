@@ -162,6 +162,7 @@ module.exports.searchAllTechSkills = () => {
           return;
         }
       })
+      reject('ERROR: No skills retrieved from database.');
     })
   })
 }
@@ -188,6 +189,7 @@ module.exports.searchAllGalleryImages = () => {
           return;
         }
       })
+      reject('ERROR: No images retrieved from database.');
     })
   })
 }
@@ -267,7 +269,6 @@ module.exports.searchAllProj = () => {
     */
 
       let Projects = [];
-
       model.Project.findAll()
       .then((dataArr) => {
         dataArr.forEach((dataEntry, dataIndex) => {
@@ -293,6 +294,7 @@ module.exports.searchAllProj = () => {
             })
           })
         })
+        reject('ERROR: No projects retrieved from database.');
       })
   })
 }
@@ -366,6 +368,7 @@ module.exports.searchAllComic = () => {
             })
           })
         })
+        reject('ERROR: No projects retrieved from database.');
       })
 
   })
