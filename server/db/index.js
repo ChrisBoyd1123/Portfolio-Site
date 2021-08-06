@@ -34,7 +34,7 @@ const ComicLink = sequelize.define('ComicLink', {
 
 const ComicDescription = sequelize.define('ComicDescription', {
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(10000),
     allowNull: false
   }
 });
@@ -80,7 +80,7 @@ const ProjectLink = sequelize.define('ProjectLink', {
 
 const ProjectDescription = sequelize.define('ProjectDescription', {
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(10000),
     allowNull: false
   }
 });
