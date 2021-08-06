@@ -50,13 +50,28 @@ module.exports.newProjDesc = (desc) => {
 
 module.exports.newProj = ({ name, description, link}) => {
   return new Promise((resolve, reject) => {
-    model.Project.create({
-      Name: name,
-      ProjectLinkId: module.exports.newProjLink(link),
-      ProjectDescriptionId: module.exports.newProjDesc(description)
+    module.exports.newProjLink(link)
+    .then((linkId) => {
+      module.exports.newProjDesc(description)
+      .then((descId) => {
+        model.Project.create({
+          Name: name,
+          ProjectLinkId: linkId,
+          ProjectDescriptionId: descId
+        })
+        .then(({ dataValues }) => {
+          resolve(dataValues);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+      })
+      .catch((err) => {
+        reject(err);
+      })
     })
-    .then(({ dataValues }) => {
-      resolve(dataValues);
+    .catch((err) => {
+      reject(err);
     })
   })
 }
@@ -107,15 +122,30 @@ module.exports.newComicDesc = (desc) => {
 // - Should return an object representing the new Comic row entry
 //(including generated ID, inputted name, linkId, and descId).
 
-module.exports.newComic = ({ name, description, link}) => {
+module.exports.newComic = ({ name, description, tag}) => {
   return new Promise((resolve, reject) => {
-    model.Comic.create({
-      Name: name,
-      ComicLinkId: module.exports.newComicLink(link),
-      ComicDescriptionId: module.exports.newComicDesc(description)
+    module.exports.newComicLink(tag)
+    .then((tagId) => {
+      module.exports.newComicDesc(description)
+      .then((descId) => {
+        model.Comic.create({
+          Name: name,
+          ProjectLinkId: tagId,
+          ProjectDescriptionId: descId
+        })
+        .then(({ dataValues }) => {
+          resolve(dataValues);
+        })
+        .catch((err) => {
+          reject(err);
+        })
+      })
+      .catch((err) => {
+        reject(err);
+      })
     })
-    .then(({ dataValues }) => {
-      resolve(dataValues);
+    .catch((err) => {
+      reject(err);
     })
   })
 }
@@ -271,12 +301,7 @@ module.exports.searchAllProj = () => {
       let Projects = [];
       model.Project.findAll()
       .then((dataArr) => {
-        dataArr.forEach((dataEntry, dataIndex) => {
-          if(dataEntry.dataValues){
-            let { dataValues } = dataEntry;
-          }else{
-            return;
-          }
+        dataArr.forEach(({ dataValues }, dataIndex) => {
           module.exports.searchOneProjLink(dataValues.ProjectLinkId)
           .then((projLink) => {
             module.exports.searchOneProjDesc(dataValues.ProjectDescriptionId)
@@ -294,7 +319,9 @@ module.exports.searchAllProj = () => {
             })
           })
         })
-        reject('ERROR: No projects retrieved from database.');
+        if(dataArr.length === 0){
+          reject('ERROR: No projects retrieved from database.');
+        }
       })
   })
 }
@@ -368,7 +395,9 @@ module.exports.searchAllComic = () => {
             })
           })
         })
-        reject('ERROR: No projects retrieved from database.');
+        if(dataArr.length === 0){
+          reject('ERROR: No comics retrieved from database.');
+        }
       })
 
   })
