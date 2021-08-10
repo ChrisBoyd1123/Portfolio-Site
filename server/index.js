@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(bodyParser.json());
-app.use('/', routes);
+app.use('/', express.static('dist/portfolio-site'));
+app.use('/api', routes);
 
 const { newProjLink, searchOneProjLink } = require('./db/helpers.js');
 
