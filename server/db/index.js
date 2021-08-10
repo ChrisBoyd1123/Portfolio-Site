@@ -58,7 +58,35 @@ Comic.belongsTo(ComicDescription);
 //A TECHSKILLS table, with rows:
 //SKILL - The name of the development skill.
 
-const TechSkills = sequelize.define('TechSkills', {
+const TechLanguageSkills = sequelize.define('TechLanguageSkills', {
+  skill: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+const TechBackendSkills = sequelize.define('TechFrameworkSkills', {
+  skill: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+const TechFrontendSkills = sequelize.define('TechLibrarySkills', {
+  skill: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+const TechDatabaseSkills = sequelize.define('TechLibrarySkills', {
+  skill: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+const TechCICDSkills = sequelize.define('TechCICDSkills', {
   skill: {
     type: DataTypes.STRING,
     allowNull: false
@@ -107,10 +135,14 @@ module.exports.db = () => {
   })
 }
 module.exports.model = {
-  TechSkills: TechSkills,
   Project: Project,
   ProjectLink: ProjectLink,
   ProjectDescription: ProjectDescription,
+  TechLanguageSkills: TechLanguageSkills,
+  TechFrontendSkills: TechFrontendSkills,
+  TechBackendSkills: TechBackendSkills,
+  TechDatabaseSkills: TechDatabaseSkills,
+  TechCICDSkills: TechCICDSkills,
   GalleryImage: GalleryImage,
   Comic: Comic,
   ComicLink: ComicLink,
