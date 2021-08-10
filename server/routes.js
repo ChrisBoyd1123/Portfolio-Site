@@ -28,7 +28,7 @@ router.get('/Search/Project', (req, res) => {
   })
 })
 
-router.get('/Search/GalleryImages', (req, res) => {
+router.get('/Search/GalleryImage', (req, res) => {
   searchAllGalleryImages().then((data) => {
     res.status(200).send(data);
   })
@@ -37,7 +37,7 @@ router.get('/Search/GalleryImages', (req, res) => {
   })
 })
 
-router.get('/Search/TechSkills', (req, res) => {
+router.get('/Search/TechSkill', (req, res) => {
   searchAllTechSkills().then((data) => {
     res.status(200).send(data);
   })
@@ -64,7 +64,7 @@ router.post('/Add', (req, res, next) => {
   next();
 })
 
-router.post('/Add/Project', (req, res, next) => {
+router.post('/Add/Project', (req, res) => {
   if(checkAuth(req.url.split('?AuthKey=')[1])){
     if(req.body.link
       && req.body.description
@@ -83,7 +83,7 @@ router.post('/Add/Project', (req, res, next) => {
   }
 })
 
-router.post('/Add/Comic', (req, res, next) => {
+router.post('/Add/Comic', (req, res) => {
   if(checkAuth(req.url.split('?AuthKey=')[1])){
     if(req.body.tag
       && req.body.description
@@ -94,7 +94,42 @@ router.post('/Add/Comic', (req, res, next) => {
         })
       }else{
         res.status(400).send(`Check your sent data! One or more parameters were not correctly
-        labeled. Remember, a new project requires a 'tag', 'description', and 'name.'`);
+        labeled. Remember, a new comic requires a 'tag', 'description', and 'name.'`);
+      }
+  }else{
+    res.status(403).send(`Incorrect key used for POST to portfolio database.
+    Make sure that you are sending authentication as an in-query API key titled "AuthKey."`);
+  }
+})
+
+router.post('/Add/GalleryImage', (req, res) => {
+  if(checkAuth(req.url.split('?AuthKey=')[1])){
+    if(req.body.link){
+        newGalleryImg(req.body.link)
+        .then((data) => {
+          res.status(200).send(data);
+        })
+      }else{
+        res.status(400).send(`Check your sent data! One or more parameters were not correctly
+        labeled. Remember, a new gallery image requires a 'link.'`);
+      }
+  }else{
+    res.status(403).send(`Incorrect key used for POST to portfolio database.
+    Make sure that you are sending authentication as an in-query API key titled "AuthKey."`);
+  }
+})
+
+router.post('/Add/TechSkill', (req, res) => {
+  if(checkAuth(req.url.split('?AuthKey=')[1])){
+    if(req.body.skill
+      && req.body.skillType){
+        newTechSkill(req.body.skill, req.body.skillType)
+        .then((data) => {
+          res.status(200).send(data);
+        })
+      }else{
+        res.status(400).send(`Check your sent data! One or more parameters were not correctly
+        labeled. Remember, a new tech skill requires a 'skill.'`);
       }
   }else{
     res.status(403).send(`Incorrect key used for POST to portfolio database.
