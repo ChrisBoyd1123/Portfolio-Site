@@ -77,16 +77,33 @@ module.exports.newProj = ({ name, description, link}) => {
 }
 
 //A helper function which creates a new TechSkill entry after receiving a
-//string with the skill's name.
+//string with the skill's name and a string specifying the skill's type.
 // - Should return an object representing the new TechSkill row entry
 //(including generated ID and inputted skill).
 
-module.exports.newTechSkill = (skillDesc) => {
+module.exports.newTechSkill = (skillDesc, skillType) => {
+
   return new Promise((resolve, reject) => {
-    model.TechSkills.create({skill: skillDesc})
-  .then(({ dataValues }) => {
-    resolve(dataValues);
-  })
+    let skillModel;
+    if(skillType = 'language'){
+      skillModel  = model.TechLanguageSkills;
+    }else if(skillType = 'frontend'){
+      skillModel = model.TechFrontendSkills;
+    }else if(skillType = 'backend'){
+      skillModel = model.TechBackendSkills;
+    }else if(skillType = 'database'){
+      skillModel = model.TechDatabaseSkills;
+    }else if(skillType = 'CICD'){
+      skillModel = model.TechCICDSkills;
+    }else{
+      reject('No valid skill type given.');
+    }
+
+    skillModel.create({
+      skill: skillDesc
+    }).then(({dataValues}) => {
+      resolve(dataValues);
+    })
   })
 }
 
@@ -130,8 +147,8 @@ module.exports.newComic = ({ name, description, tag}) => {
       .then((descId) => {
         model.Comic.create({
           Name: name,
-          ProjectLinkId: tagId,
-          ProjectDescriptionId: descId
+          ComicLinkId: tagId,
+          ComicDescriptionId: descId
         })
         .then(({ dataValues }) => {
           resolve(dataValues);
@@ -171,29 +188,64 @@ HELPER FUNCTIONS - SELECT
 // * // * // * //
 
 //A helper function that finds all TechSkill entries,
-//and returns an array of objects containing each entry's data.
-//(Including ID and skillDesc).
+//and returns an array of arrays containing each entry's skillDesc.
+
+// Array order should be: languages, frontends, backends, database, CICD.
 
 module.exports.searchAllTechSkills = () => {
   return new Promise ((resolve, reject) => {
-    model.TechSkills.findAll()
+    let skills = [];
+
+    model.TechLanguageSkills.findAll()
     .then((dataArr) => {
-      let Skills = [];
-      dataArr.forEach((dataEntry, dataIndex) => {
-        if(dataEntry.dataValues){
-          Skills.push({
-            id: dataEntry.dataValues.id,
-            skill: dataEntry.dataValues.skill
-          });
-          if(dataIndex === dataArr.length - 1){
-            resolve(Skills);
-          }
-        }else{
-          return;
-        }
+      let languages = [];
+      dataArr.forEach(({dataValues}, dataIndex) => {
+        languages.push(dataValues.skill);
       })
-      reject('ERROR: No skills retrieved from database.');
+      skills.push(languages);
     })
+    .then(() => {
+      model.TechFrontendSkills.findAll()
+      .then((dataArr) => {
+        let frontends = [];
+        dataArr.forEach(({dataValues}, dataIndex) => {
+          frontends.push(dataValues.skill);
+       })
+        skills.push(frontends);
+      })
+      .then(() => {
+        model.TechBackendSkills.findAll()
+      .then((dataArr) => {
+        let backends = [];
+        dataArr.forEach(({dataValues}, dataIndex) => {
+          backends.push(dataValues.skill);
+       })
+        skills.push(backends);
+      })
+      .then(() => {
+        model.TechDatabaseSkills.findAll()
+      .then((dataArr) => {
+        let databases = [];
+        dataArr.forEach(({dataValues}, dataIndex) => {
+          databases.push(dataValues.skill);
+       })
+        skills.push(databases);
+      })
+      .then(() => {
+        model.TechCICDSkills.findAll()
+      .then((dataArr) => {
+        let CICDs = [];
+        dataArr.forEach(({dataValues}, dataIndex) => {
+          CICDs.push(dataValues.skill);
+       })
+        skills.push(CICDs);
+        resolve(skills);
+            })
+          })
+        })
+      })
+    })
+
   })
 }
 
@@ -372,12 +424,7 @@ module.exports.searchAllComic = () => {
 
       model.Comic.findAll()
       .then((dataArr) => {
-        dataArr.forEach((dataEntry, dataIndex) => {
-          if(dataEntry.dataValues){
-            let { dataValues } = dataEntry;
-          }else{
-            return;
-          }
+        dataArr.forEach(({dataValues}, dataIndex) => {
           module.exports.searchOneComicLink(dataValues.ComicLinkId)
           .then((comicLink) => {
             module.exports.searchOneComicDesc(dataValues.ComicDescriptionId)
