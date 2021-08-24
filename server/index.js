@@ -11,7 +11,13 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(bodyParser.json());
-app.use('/', express.static('dist/portfolio-site'));
+const angularPages = ['/', '/landing-page/home', '/landing-page/contact', '/software/home',
+'/software/tech', '/software/soft', '/software/projects', '/software/contact',
+'/illustration/home', '/illustration/gallery', '/illustration/comics',
+'/illustration/commissions', '/illustration/contact']
+angularPages.forEach((pageRoute, pageRouteIndex) => {
+    app.use(pageRoute, express.static('dist/portfolio-site'));
+})
 app.use('/api', routes);
 
 const { newProjLink, searchOneProjLink } = require('./db/helpers.js');
