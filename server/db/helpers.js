@@ -85,16 +85,18 @@ module.exports.newTechSkill = (skillDesc, skillType) => {
 
   return new Promise((resolve, reject) => {
     let skillModel;
-    if(skillType = 'language'){
+    if(skillType === 'language'){
       skillModel  = model.TechLanguageSkills;
-    }else if(skillType = 'frontend'){
+    }else if(skillType === 'frontend'){
       skillModel = model.TechFrontendSkills;
-    }else if(skillType = 'backend'){
+    }else if(skillType === 'backend'){
       skillModel = model.TechBackendSkills;
-    }else if(skillType = 'database'){
+    }else if(skillType === 'database'){
       skillModel = model.TechDatabaseSkills;
-    }else if(skillType = 'CICD'){
+    }else if(skillType === 'CICD'){
       skillModel = model.TechCICDSkills;
+    }else if(skillType === 'misc'){
+      skillModel = model.TechMiscAndLibrarySkills;
     }else{
       reject('No valid skill type given.');
     }
@@ -188,13 +190,13 @@ HELPER FUNCTIONS - SELECT
 // * // * // * //
 
 //A helper function that finds all TechSkill entries,
-//and returns an array of arrays containing each entry's skillDesc.
+//and returns an object of arrays containing each entry's skillDesc.
 
-// Array order should be: languages, frontends, backends, database, CICD.
+// Array order should be: languages, frontends, backends, database, CICD, misc/library.
 
 module.exports.searchAllTechSkills = () => {
   return new Promise ((resolve, reject) => {
-    let skills = [];
+    let skills = {};
 
     model.TechLanguageSkills.findAll()
     .then((dataArr) => {
@@ -202,7 +204,7 @@ module.exports.searchAllTechSkills = () => {
       dataArr.forEach(({dataValues}, dataIndex) => {
         languages.push(dataValues.skill);
       })
-      skills.push(languages);
+      skills.languages = languages;
     })
     .then(() => {
       model.TechFrontendSkills.findAll()
@@ -211,7 +213,7 @@ module.exports.searchAllTechSkills = () => {
         dataArr.forEach(({dataValues}, dataIndex) => {
           frontends.push(dataValues.skill);
        })
-        skills.push(frontends);
+        skills.frontends = frontends;
       })
       .then(() => {
         model.TechBackendSkills.findAll()
@@ -220,7 +222,7 @@ module.exports.searchAllTechSkills = () => {
         dataArr.forEach(({dataValues}, dataIndex) => {
           backends.push(dataValues.skill);
        })
-        skills.push(backends);
+        skills.backends = backends;
       })
       .then(() => {
         model.TechDatabaseSkills.findAll()
@@ -229,7 +231,7 @@ module.exports.searchAllTechSkills = () => {
         dataArr.forEach(({dataValues}, dataIndex) => {
           databases.push(dataValues.skill);
        })
-        skills.push(databases);
+        skills.databases = databases;
       })
       .then(() => {
         model.TechCICDSkills.findAll()
@@ -238,8 +240,20 @@ module.exports.searchAllTechSkills = () => {
         dataArr.forEach(({dataValues}, dataIndex) => {
           CICDs.push(dataValues.skill);
        })
-        skills.push(CICDs);
-        resolve(skills);
+        skills.CICDs = CICDs;
+            })
+            .then(() => {
+
+              model.TechMiscAndLibrarySkills.findAll()
+              .then((dataArr) => {
+                let misc = [];
+                  dataArr.forEach(({dataValues}, dataIndex) => {
+                  misc.push(dataValues.skill);
+                  })
+                skills.misc = misc;
+                resolve(skills);
+              })
+
             })
           })
         })
