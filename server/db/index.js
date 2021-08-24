@@ -14,7 +14,7 @@ const sequelize = DATABASE_URI ?
 //ART_LINK - the Imgur link to the art piece.
 const GalleryImage = sequelize.define('GalleryImage', {
   artLink: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(2000),
     allowNull: false
   }
 });
@@ -65,21 +65,21 @@ const TechLanguageSkills = sequelize.define('TechLanguageSkills', {
   }
 });
 
-const TechBackendSkills = sequelize.define('TechFrameworkSkills', {
+const TechBackendSkills = sequelize.define('TechBackendSkills', {
   skill: {
     type: DataTypes.STRING,
     allowNull: false
   }
 });
 
-const TechFrontendSkills = sequelize.define('TechLibrarySkills', {
+const TechFrontendSkills = sequelize.define('TechFrontendSkills', {
   skill: {
     type: DataTypes.STRING,
     allowNull: false
   }
 });
 
-const TechDatabaseSkills = sequelize.define('TechLibrarySkills', {
+const TechDatabaseSkills = sequelize.define('TechDatabaseSkills', {
   skill: {
     type: DataTypes.STRING,
     allowNull: false
@@ -87,6 +87,13 @@ const TechDatabaseSkills = sequelize.define('TechLibrarySkills', {
 });
 
 const TechCICDSkills = sequelize.define('TechCICDSkills', {
+  skill: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+const TechMiscAndLibrarySkills = sequelize.define('TechMiscAndLibrarySkills', {
   skill: {
     type: DataTypes.STRING,
     allowNull: false
@@ -108,7 +115,7 @@ const ProjectLink = sequelize.define('ProjectLink', {
 
 const ProjectDescription = sequelize.define('ProjectDescription', {
   description: {
-    type: DataTypes.STRING(10000),
+    type: DataTypes.TEXT,
     allowNull: false
   }
 });
@@ -143,6 +150,7 @@ module.exports.model = {
   TechBackendSkills: TechBackendSkills,
   TechDatabaseSkills: TechDatabaseSkills,
   TechCICDSkills: TechCICDSkills,
+  TechMiscAndLibrarySkills: TechMiscAndLibrarySkills,
   GalleryImage: GalleryImage,
   Comic: Comic,
   ComicLink: ComicLink,
