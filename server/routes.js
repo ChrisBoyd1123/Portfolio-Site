@@ -16,7 +16,7 @@ const { checkAuth } = require('./auth');
 
 router.get('/Search', (req, res, next) => {
   console.log('successful GET request.');
-  next();
+  res.status(200).send();
 })
 
 router.get('/Search/Project', (req, res) => {
