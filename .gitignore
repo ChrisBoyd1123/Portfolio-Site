@@ -48,7 +48,7 @@ Thumbs.db
 .env
 
 # Example Data
-/data
+/exampleData
 
 #authentication methods
 /authGeneration.js
