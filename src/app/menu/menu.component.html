@@ -1,4 +1,7 @@
-<div class='container'>
-<app-header [routerLink]="'/'+currentGenRoute+'/home'" id='menu'></app-header>
-<app-nav id='menu-nav' [portfolio]='currentGenRoute' [page]='currentRoute'></app-nav>
+<div class='container-fluid sticky-top justify-content-center menu'>
+  <div class='row'>
+    <div class='col'>
+      <app-nav id='menu-nav' [portfolio]='currentGenRoute' [page]='currentRoute'></app-nav>
+    </div>
+  </div>
 </div>
