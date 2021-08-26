@@ -1,9 +1,29 @@
-.nav-link {
-  cursor:pointer;
-  color:inherit;
-  margin: 0.5rem
+.navbar-custom {
+  width: 100%;
 }
 
-.nav {
-  position: sticky;
+.navbar-custom .navbar-brand{
+  color: rgb(240, 238, 233);
+  font: large;
+  cursor: pointer;
+}
+
+.navbar-custom .nav-link{
+  color: rgba(230, 228, 223, 0.89);
+  font: medium;
+  transition-property: color;
+  transition-duration: 0.2s;
+}
+
+.navbar-custom .nav-link:hover{
+  color: rgb(240, 238, 233);
+  cursor: pointer;
+  transition-property: color;
+  transition-duration: 0.2s;
+}
+
+.navbar-custom .nav-link.active{
+  color: rgb(240, 238, 233);
+  font: large;
+  cursor: pointer;
 }
