@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class IllustrationComicsComponent implements OnInit {
 
-  protected data: object = {};
+  protected data: any = [];
 
   constructor(private http: HttpClient,
     private renderer: Renderer2,
@@ -18,11 +18,20 @@ export class IllustrationComicsComponent implements OnInit {
   ngOnInit(): void {
     this.http.get(`/api/Search/Comic`)
     .subscribe((data: any) => {
+      //TODO: Remove Imgur scripts on page re-load/re-init.
+      if(this.data[this.data.length - 1]){
+        console.log('data stored.');
+        return;
+      }
+
       data.forEach((dataObj: any, dataObjIndex: number) => {
+        console.log('line 22', data, dataObj, dataObjIndex);
+        this.data.push(dataObj);
         const newEmbedScript = this.renderer.createElement('script');
         newEmbedScript.src = "//s.imgur.com/min/embed.js";
         newEmbedScript.charset = "utf-8";
-        this.renderer.appendChild(document.head, newEmbedScript);
+        const comicScriptDiv = this.renderer.selectRootElement('.comic-scripts', true);
+        this.renderer.appendChild(comicScriptDiv, newEmbedScript);
 
         const newEmbed = this.renderer.createElement('div');
         newEmbed.innerHTML = `<blockquote class="imgur-embed-pub" lang="en" data-id="a/${dataObj.link}"  ><a href="//imgur.com/a/${dataObj.link}">${dataObj.name}</a></blockquote>`;
