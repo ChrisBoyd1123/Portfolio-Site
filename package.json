@@ -7,7 +7,8 @@
     "server-start": "node server/index.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "app": "ng build portfolio-site && npm run server-start"
   },
   "private": true,
   "dependencies": {
