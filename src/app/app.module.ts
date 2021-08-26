@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 import { NavComponent } from './nav/nav.component';
 import { MenuComponent } from './menu/menu.component';
 import { SoftwareBioComponent } from './software-tech/software-tech.component';
@@ -16,11 +15,11 @@ import { SoftwareSoftskillsComponent } from './software-softskills/software-soft
 import { SoftwareProjectsComponent } from './software-projects/software-projects.component';
 import { IllustrationComicsComponent } from './illustration-comics/illustration-comics.component';
 import { IllustrationCommissionsComponent } from './illustration-commissions/illustration-commissions.component';
+import { PageTitleComponent } from './page-title/page-title.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     NavComponent,
     MenuComponent,
     SoftwareBioComponent,
@@ -30,7 +29,8 @@ import { IllustrationCommissionsComponent } from './illustration-commissions/ill
     SoftwareSoftskillsComponent,
     SoftwareProjectsComponent,
     IllustrationComicsComponent,
-    IllustrationCommissionsComponent
+    IllustrationCommissionsComponent,
+    PageTitleComponent
   ],
   imports: [
     HttpClientModule,
