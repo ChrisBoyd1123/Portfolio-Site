@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class IllustrationBioComponent implements OnInit {
 
+  pageName: string = 'GALLERY';
+
   constructor(private http: HttpClient,
     private renderer: Renderer2,
     private elem: ElementRef) {
