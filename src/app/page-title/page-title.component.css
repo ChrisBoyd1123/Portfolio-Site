@@ -1,0 +1,11 @@
+.page-title {
+  background-color:rgb(207, 92, 120);
+  text-align: center;
+  border-top:30px solid rgb(184, 40, 76);
+  border-bottom:30px solid rgb(231, 145, 166);
+}
+
+.page-title .title {
+  color: rgb(240, 238, 233);
+  margin: auto;
+}
